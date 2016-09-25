@@ -11,10 +11,15 @@ public class ThreadPrinter {
 
 	}
 	
-	public synchronized void write (String thingsToWrite){
+	public void write (String thingsToWrite){
 		
-		pw.write(thingsToWrite);
+		pw.println(thingsToWrite);
 		
 	}
 	
+	public void close (){
+		
+		pw.close();
+		
+	}
 }
