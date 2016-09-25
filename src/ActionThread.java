@@ -4,12 +4,16 @@ public final class ActionThread extends Thread {
 
 	private Fork left;
 	private Fork right;
-
-	public ActionThread(String name, Fork left, Fork right){
+	private long begin;
+	private ThreadPrinter tpw;
+	
+	public ActionThread(String name, Fork left, Fork right, ThreadPrinter tpw, long begin){
 		
 		super(name);
 		this.left = left;
 		this.right = right;
+		this.begin = begin;
+		this.tpw = tpw;
 		
 	}
 	
@@ -53,27 +57,32 @@ public final class ActionThread extends Thread {
 		e.printStackTrace();
 	}
 	
-	for (int i=0 ; i<10; i++){
-		
-		try {
-			take();
-		} 
-		
-		catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-		
-		release();
-		
-		try {
-			Thread.sleep(rand.nextInt(256));
-		}
-		catch(Exception e){
-			e.printStackTrace();
-		}
-		
-	}
 	
+		
+		for (int i=0 ; i<10; i++){
+			
+			if (System.currentTimeMillis() - begin < 1000){
+				
+				try {
+					take();
+				} 
+				
+				catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				release();
+				
+				try {
+					Thread.sleep(rand.nextInt(256));
+				}
+				catch(Exception e){
+					e.printStackTrace();
+				}
+				
+			}
+	
+		}
 	
 	}
 	

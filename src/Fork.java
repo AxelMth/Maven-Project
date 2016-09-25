@@ -1,12 +1,10 @@
 public final class Fork {
 	
 	private boolean bool;
-	private int id;
 	
-	public Fork(boolean bool, int id){
+	public Fork(boolean bool){
 		
 		this.bool = bool;
-		this.id = id;
 	}
 	
 	public boolean getBool(){
