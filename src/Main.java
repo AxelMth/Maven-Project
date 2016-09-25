@@ -3,12 +3,12 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		
-		long begin = System.currentTimeMillis();
-		long timeToStop = 1000;
+		long begin = System.currentTimeMillis();// Starting time
+		long timeToStop = 1000;					// Stopping time
 		
 		ThreadPrinter tpw = new ThreadPrinter("philosophe.txt");
 		
-		boolean output = true;
+		boolean output = true; // Output in the console
 		
 		Fork  f1 = new Fork(true);
 		Fork  f2 = new Fork(true);
@@ -29,7 +29,7 @@ public class Main {
 		Seneque.start();
 		
 		while(System.currentTimeMillis() - begin < timeToStop){
-			
+			// Loop to close the PrintWriter after the end of threads' execution 
 		}
 		
 		tpw.close();

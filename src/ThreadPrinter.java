@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.io.PrintWriter;
 
-public class ThreadPrinter {
+public class ThreadPrinter { // Just a printWriter in an object
 
 	private PrintWriter pw ;
 	

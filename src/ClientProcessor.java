@@ -18,15 +18,16 @@ class ClientProcessor extends Thread {
 			
 			PrintWriter pw = new PrintWriter(socket.getOutputStream()) ;
 			
-			pw.println("World");
+			pw.println("World"); // Send the message world to the Server
 			
 			pw.flush();
 			
 			InputStreamReader ir = new InputStreamReader(socket.getInputStream()) ;
 			BufferedReader rd = new BufferedReader(ir);
 			
-		    String message_distant = rd.readLine();
-		    System.out.println(message_distant);
+		    String message = rd.readLine(); // Receive the response from the server
+		    
+		    System.out.println(message); // Write the response in the console
 		    
 		    socket.close();
 		    

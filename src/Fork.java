@@ -1,5 +1,7 @@
 public final class Fork {
 	
+	// Simple object with a boolean that says if the Fork is taken or not 
+	
 	private boolean bool;
 	
 	public Fork(boolean bool){

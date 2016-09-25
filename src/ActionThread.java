@@ -1,13 +1,15 @@
 import java.util.Random;
 
+// Action represents the philosophes and their actions (eat, wait)
+
 public final class ActionThread extends Thread {
 
-	private Fork left;
-	private Fork right;
-	private long begin;
-	private ThreadPrinter tpw;
-	private long timeToStop;
-	private boolean output;
+	private Fork left;				// Definition of their Fork and their place in 
+	private Fork right;				// the table
+	private long begin;				// Starting time of the main program
+	private ThreadPrinter tpw;		// Object that allows the thread to write in a text file
+	private long timeToStop;		// Global time that threads can't exceed
+	private boolean output;			// output parameter (console, text file)
 	
 	public ActionThread(String name, Fork left, Fork right, ThreadPrinter tpw, long begin, long timeToStop,boolean output){
 		
@@ -23,21 +25,23 @@ public final class ActionThread extends Thread {
 	
 	public synchronized void take(int i) throws InterruptedException {
 		
+		// Parameter i only define how many times a philosophe ate 
+		
 		Random rand = new Random();
 		
 		int timeToEat = rand.nextInt(256);
 		
-		if (!(left.getBool() && right.getBool())){
-			
+		if (!(left.getBool() && right.getBool())){ // true when Left and Right Forks 
+												   // are not available
 			wait();
 			
-			if (output){
+			if (output){ // Writing the result in the console
 			
 			System.out.println(getName() + " attend de manger ");
 			
 			}
 			
-			else{
+			else{ // Writing the result in the text file
 				
 				tpw.write(getName() + " attend de manger ");
 				
@@ -48,10 +52,10 @@ public final class ActionThread extends Thread {
 		
 		else{
 			
-			left.take();
-			right.take();
+			left.take();  // Take the left Fork and prevent his left neighbour from eating
+			right.take(); // Take the right Fork and prevent his right neighbour from eating
 			
-			Thread.sleep(timeToEat);
+			Thread.sleep(timeToEat); // Eat while timeToEat secs
 			
 			if (output){
 			
@@ -72,10 +76,10 @@ public final class ActionThread extends Thread {
 	
 	public synchronized void release(){
 		
-		left.release();
-		right.release();
+		left.release();   		// put The left Fork on the table 
+		right.release();		// put The right Fork on the table 
 		
-		notifyAll();
+		notifyAll();			// Allow his neighbour to eat
 		
 	}
 	
@@ -88,7 +92,7 @@ public final class ActionThread extends Thread {
 	
 	try {
 		
-		Thread.sleep(timeToThink);
+		Thread.sleep(timeToThink);			// Think for the first time
 		
 		if (output){
 			
@@ -111,19 +115,20 @@ public final class ActionThread extends Thread {
 		
 	}
 		
-	for (int i=0 ; i<10; i++){
-			
+	for (int i=0 ; i<10; i++){		
+		
 		if (System.currentTimeMillis() - begin < timeToStop){
-				
+		// Philosophe have a time limit to eat
+			
 			try {
-				take(i);
+				take(i); // Philosophe eating 
 			} 
 				
 			catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 				
-			release();
+			release();  // Philosophe finished eating 
 			
 			if (output){
 			
