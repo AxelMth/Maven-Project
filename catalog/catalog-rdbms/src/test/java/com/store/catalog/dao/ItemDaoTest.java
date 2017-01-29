@@ -104,11 +104,9 @@ public class ItemDaoTest extends AbstractBaseDaoTestCase {
     	
     	assertTrue(getIterableSize(lst) == 1);
     	
-    	//Add another element
     	Item it2 = getAnotherItem();
     	itemDao.save(it2);
     	
-    	//Verify that the list contains 2 elements
     	assertTrue(getIterableSize(itemDao.findAll()) == 2);
     }
 
@@ -118,17 +116,11 @@ public class ItemDaoTest extends AbstractBaseDaoTestCase {
     	
     	itemDao.save(item);
     	
-    	Iterable<Item> lst = itemDao.findByProductId(item.getId());
+    	Iterable<Item> lst = itemDao.findByProductId(item.getProduct().getId());
     	
     	assertTrue(getIterableSize(lst) == 1);
     	
-    	//Add another element
-    	Item it2 = getAnotherItem();
     	
-    	itemDao.save(it2);
-    	
-    	//Verify that the list contains 2 elements
-    	assertTrue(getIterableSize(itemDao.findByProductId(item.getId())) == 1);
     }
 
 
@@ -137,9 +129,9 @@ public class ItemDaoTest extends AbstractBaseDaoTestCase {
 
     	itemDao.save(item);
     	
-    	Iterable<Item> lst = itemDao.findByNameContaining(item.getName());
+    	//Iterable<Item> lst = itemDao.findByNameContaining(item.getName());
     	
-    	assertTrue(getIterableSize(lst) == 1);
+    	assertTrue(getIterableSize(itemDao.findByNameContaining(item.getName())) == 1);
     	
     	//Add another element
     	Item it2 = getAnotherItem();
@@ -147,7 +139,7 @@ public class ItemDaoTest extends AbstractBaseDaoTestCase {
     	itemDao.save(it2);
     	
     	//Verify that the list contains 2 elements
-    	assertTrue(getIterableSize(itemDao.findByNameContaining(item.getName())) == 1);
+    	assertTrue(getIterableSize(itemDao.findByNameContaining(item.getName())) == 2);
     }
     
     
