@@ -9,31 +9,51 @@ import com.store.catalog.service.creditcard.CreditCardService;
  */
 public class CreditCardServiceImpl implements CreditCardService {
 
-
-    public boolean verifyCreditCard(final CreditCardDTO creditCardDto) throws NumberFormatException {
+    public VerifCCResult verifyCreditCard(final CreditCardDTO creditCardDto) throws NumberFormatException {
         
-    	Integer.parseInt(creditCardDto.getCreditCardNumber());
+    	// La chaîne contenant le numéro de carte
+    	String numbersString = creditCardDto.getCreditCardNumber();
+    	// On sépare les espaces entre les numéros puis on vérifie que les chaînes séparées ne 
+    	// contiennent que des chiffres
+    	String[] numbersStringArray = numbersString.split(" ");
     	
-    	String numbers = creditCardDto.getCreditCardNumber();
+    	// Chaîne finale sans les espaces
+    	String numbers = "";
+    	
+    	for (int count = 0; count < numbersStringArray.length; count++){
+        	// NumberFormatException - if the String does not contain a parsable long. (JavaDoc)
+    		Long.parseLong(numbersStringArray[count]);
+    		numbers = numbers.concat(numbersStringArray[count]);
+    	}
+    	
+    	// On initialise la somme
     	int sum = 0;
-    	int nDigits = numbers.length();
-    	//int parity = nDigits & 1;
-    	char[] charNumbers = numbers.toCharArray();
-    	sum += Character.getNumericValue(charNumbers[nDigits-1]);
     	
-    	for (int i = 0; i < nDigits-1; i++){
+    	//Longueur du numéro de carte
+    	int nDigits = numbers.length();
+    	char[] charNumbers = numbers.toCharArray();
+    	
+    	// On parcours tous les chiffres contenus dans le numéro de la carte
+    	// Et on applique l'algorithme de Luhn
+    	for (int i = 0; i < nDigits; i++){
+    		// On prend la valeur de chaque chiffre de la carte (char) et on les cast en int 
+    		// Pour pouvoir faire la somme
     		int digit = Character.getNumericValue(charNumbers[i]);
+    		
     		if (i%2 == 0)
     			digit *= 2;
+    		
     		if (digit > 9)
     			digit -= 9;
+    		
     		sum += digit;
     	}
-    	int i = sum%10;
-    	if(i==0)
-    		return true;
+    	
+    	// Si c'est un multiple de 10 OK !
+    	if(sum%10==0)
+    		return VerifCCResult.OK;
     	else 
-    		return false;
+    		return VerifCCResult.KO;
     }
     
 }

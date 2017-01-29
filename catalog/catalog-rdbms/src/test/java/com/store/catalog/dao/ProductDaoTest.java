@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Collection;
 import java.util.Random;
 
 import org.junit.After;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.store.catalog.model.Category;
-import com.store.catalog.model.Item;
 import com.store.catalog.model.Product;
 import com.store.catalog.utils.ConstantUtils;
 

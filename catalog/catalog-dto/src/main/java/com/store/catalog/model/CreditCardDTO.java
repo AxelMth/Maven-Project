@@ -10,7 +10,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class CreditCardDTO implements AbstractBean {
 
-    // ======================================
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	// ======================================
     // =             Attributes             =
     // ======================================
     private String creditCardNumber;

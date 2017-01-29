@@ -8,6 +8,8 @@ import org.junit.Test;
 import com.store.catalog.common.exception.CheckException;
 import com.store.catalog.model.CreditCardDTO;
 
+import com.store.catalog.model.VerifCCResult;
+
 import static org.junit.Assert.*;
 
 /**
@@ -17,11 +19,6 @@ public class CreditCardServiceImplTest {
 
 	private CreditCardDTO creditCardDTO;
 	private CreditCardServiceImpl creditCardService;
-	
-	public enum VerifCCResult {
-
-	    OK, KO
-	}
 
 	@Before
 	public void setUp(){
@@ -47,7 +44,7 @@ public class CreditCardServiceImplTest {
     public void testVerifyCreditCard() throws CheckException {
     
 		creditCardDTO.setCreditCardNumber("4563960122001999");
-    	assertEquals(true,creditCardService.verifyCreditCard(creditCardDTO));
+    	assertEquals(VerifCCResult.OK,creditCardService.verifyCreditCard(creditCardDTO));
     	
 	}
 	
@@ -55,7 +52,7 @@ public class CreditCardServiceImplTest {
     public void testVerifyCreditCard1() throws CheckException {
     	
     	creditCardDTO.setCreditCardNumber("0");
-    	assertEquals(true,creditCardService.verifyCreditCard(creditCardDTO));
+    	assertEquals(VerifCCResult.OK,creditCardService.verifyCreditCard(creditCardDTO));
     	
     }
 	
@@ -63,7 +60,7 @@ public class CreditCardServiceImplTest {
     public void testVerifyCreditCard2() throws CheckException {
     	
     	creditCardDTO.setCreditCardNumber("34");
-    	assertEquals(true,creditCardService.verifyCreditCard(creditCardDTO));
+    	assertEquals(VerifCCResult.OK,creditCardService.verifyCreditCard(creditCardDTO));
 
     }
     
@@ -71,23 +68,47 @@ public class CreditCardServiceImplTest {
     public void testVerifyCreditCard3() throws CheckException {
     	
     	creditCardDTO.setCreditCardNumber("042");
-    	assertEquals(true,creditCardService.verifyCreditCard(creditCardDTO));
+    	assertEquals(VerifCCResult.KO,creditCardService.verifyCreditCard(creditCardDTO));
     	
     }
     
     @Test
     public void testVerifyCreditCard4() throws CheckException {
 
-    	creditCardDTO.setCreditCardNumber("972487086");
-    	assertEquals(true,creditCardService.verifyCreditCard(creditCardDTO));
+    	creditCardDTO.setCreditCardNumber("982487086");
+    	assertEquals(VerifCCResult.OK,creditCardService.verifyCreditCard(creditCardDTO));
     	
     }
     
     @Test
     public void testVerifyCreditCard5() throws CheckException {
 
-    	creditCardDTO.setCreditCardNumber("972487087");
-    	assertEquals(false,creditCardService.verifyCreditCard(creditCardDTO));
+    	creditCardDTO.setCreditCardNumber("982487087");
+    	assertEquals(VerifCCResult.KO,creditCardService.verifyCreditCard(creditCardDTO));
+    	
+    }
+    
+    @Test
+    public void testVerifyCreditCard6() throws CheckException {
+
+    	creditCardDTO.setCreditCardNumber("4975050002071221");
+    	assertEquals(VerifCCResult.OK,creditCardService.verifyCreditCard(creditCardDTO));
+    	
+    }
+    
+    @Test
+    public void testVerifyCreditCard7() throws CheckException {
+
+    	creditCardDTO.setCreditCardNumber("4975050102071221");
+    	assertEquals(VerifCCResult.KO,creditCardService.verifyCreditCard(creditCardDTO));
+    	
+    }
+    
+    @Test
+    public void testVerifyCreditCard8() throws CheckException {
+
+    	creditCardDTO.setCreditCardNumber("49750501020712 21");
+    	assertEquals(VerifCCResult.KO,creditCardService.verifyCreditCard(creditCardDTO));
     	
     }
 }

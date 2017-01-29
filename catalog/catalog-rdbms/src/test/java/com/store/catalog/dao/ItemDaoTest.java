@@ -183,7 +183,7 @@ public class ItemDaoTest extends AbstractBaseDaoTestCase {
         return product;
 	}    
 	
-	private Product getProduct(String name, String desc) {
+	/*private Product getProduct(String name, String desc) {
 	   	Product product = new Product();
         product.setId(new Random().nextLong());
         product.setName(name);
@@ -195,7 +195,7 @@ public class ItemDaoTest extends AbstractBaseDaoTestCase {
         productDao.save(product);        
         
         return product;
-	}	
+	}	*/
 	
 	private Category getCategory() {
 		Category category = new Category();

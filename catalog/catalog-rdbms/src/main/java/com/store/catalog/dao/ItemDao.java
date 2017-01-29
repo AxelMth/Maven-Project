@@ -5,7 +5,6 @@ package com.store.catalog.dao;
 
 import com.store.catalog.model.Item;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
