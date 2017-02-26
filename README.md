@@ -1,2 +1,2 @@
 # Maven-Project
-Define an online shopping platform 
+Define an online shopping platform in JAVA. 
